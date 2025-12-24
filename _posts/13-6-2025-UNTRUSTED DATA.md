@@ -11,7 +11,7 @@
 
 **❔ Tại sao các dữ liệu bên ngoài (External Data) là không đáng tin?**
 
-![image.png](image.png)
+![](assets/img/posts/unstrusted_data/image.png)
 
 - Hackers là tập con của Users, chỉ khác ở, đây là những người dùng tinh nghịch
 - Dữ liệu Hackers và Users lẫn vào nhau → Buộc phải xem tất cả dữ liệu đi vào là không đáng tin cậy
@@ -29,7 +29,7 @@
 
 ## 1.2. Rủi ro từ Untrusted Data
 
-![image.png](image%201.png)
+![](assets/img/posts/unstrusted_data/image1.png)
 
 Trong mô hình web này, chúng ta cần bảo vệ:
 
@@ -48,7 +48,7 @@ Trong mô hình web này, chúng ta cần bảo vệ:
 
 ## 1.3. Cách attacker tác động đến Web Server:
 
-![image.png](image%202.png)
+![](assets/img/posts/unstrusted_data/image2.png)
 
 - Trong mô hình này, untrusted data là toàn bộ gói tin HTTP Request.
 - Lưu ý: Trong các trường hợp phức tạp hơn, untrusted data có thể đến từ rất nhiều nguồn khác nhau.
