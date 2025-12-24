@@ -29,7 +29,7 @@ paginate: 10
 
 theme_mode:
 cdn:
-avatar:
+avatar: /assets/img/avatar.png
 
 comments:
   provider:
