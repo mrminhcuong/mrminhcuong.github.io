@@ -1,40 +1,50 @@
 ---
-# Keep your existing header here
 title: About
 icon: fas fa-info-circle
 order: 4
 ---
 
-# Hi there, I'm Minh Cuong! 👋
+Hi, I'm **Minh Cuong**.
 
-I am a cybersecurity enthusiast with a strong focus on **Penetration Testing** and **Offensive Security**. This blog serves as my digital garden where I document my learning journey, share CTF writeups, and explore security vulnerabilities.
+I am a cybersecurity enthusiast with a strong focus on **Penetration Testing**
+and **Offensive Security**.
 
-### 🔭 What I'm working on
-Currently, I am focusing on improving my skills in:
-- **Web Application Security** (OWASP Top 10)
-- **Network Penetration Testing**
-- **Privilege Escalation** techniques
+This blog serves as my digital garden where I document my learning journey,
+share CTF writeups, and explore security vulnerabilities.
 
-### 📝 Writeups & Research
-I regularly participate in CTF competitions on platforms like *Hack The Box* and *TryHackMe*. You can find my detailed writeups in the [Writeups](/categories/writeups) section.
+## What I'm working on
 
-### 💻 Tech Stack
+- Web Application Security (OWASP Top 10)
+- Network Penetration Testing
+- Privilege Escalation techniques
 
-| Category | Technologies |
-| :--- | :--- |
-| **Languages** | Python, Bash, C/C++ |
-| **Tools** | Burp Suite, Metasploit, Nessus |
-| **OS** | Kali Linux |
+## Writeups and Research
 
----
+I regularly participate in CTF competitions on platforms like Hack The Box and
+TryHackMe.
 
-> *"The only truly secure system is one that is powered off, cast in a block of concrete and sealed in a lead-lined room with armed guards - and even then I have my doubts."* – **Gene Spafford**
+You can find my writeups in the **Writeups** category.
 
-### 📫 Connect with me
+## Tech Stack
 
-Feel free to reach out if you have any questions or just want to discuss security topics!
+**Languages**
+- Python
+- Bash
+- C
 
-* [<i class="fab fa-github"></i> GitHub](https://github.com/mrminhcuong)
-* [<i class="fab fa-linkedin"></i> LinkedIn](https://www.linkedin.com/in/minhcuongsec/)
-* [<i class="fas fa-envelope"></i> Email](mailto:minhcuong.sec@gmail.com)
-* [<i class="fas fa-facebook"></i> Facebook](https://www.facebook.com/minh.cuongg.246283/)
+**Tools**
+- Burp Suite
+- Metasploit
+- Nessus
+- GVM
+- Reconnaise Tools: ffuf, amass, nmap, lslookup,...
+
+**Operating Systems**
+- Kali Linux
+
+## Contact
+
+- GitHub: https://github.com/mrminhcuong
+- LinkedIn: https://www.linkedin.com/in/minhcuongsec/
+- Email: mailto:minhcuong.sec@gmail.com
+- Facebook: https://www.facebook.com/minh.cuongg.246283/
