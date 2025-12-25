@@ -1,20 +1,27 @@
+---
+title: "Cyber Jutsu: Web Pentest 101 - Path Traversal"
+date: 2025-06-15
+categories: [cyber-jutsu, writeups]
+tags: [web-pentest-101]
+---
+
 # PATH TRAVERSAL VULNERABILITIES
 
-![image.png](image.png)
+![](/assets/img/posts/path_travesal/image.png)
 
 # PATH là gì?
 
 Path là đường dẫn trong thực tế là đường đi từ nơi này đến nơi khác.
 
-![image.png](image%201.png)
+![](/assets/img/posts/path_travesal/image1.png)
 
 Còn trên máy tính đó chính là đường dẫn để ta truy cấp đến những file, thư mục được lưu trên máy tính, lấy ví dụ hệ điều hành Linux:
 
-![image.png](image%202.png)
+![](/assets/img/posts/path_travesal/image2.png)
 
 Nếu ngoài đường, chúng ta cần xe để di chuyển, thì trong máy tính chúng ta cũng có câu lệnh `cd`
 
-![image.png](image%203.png)
+![](/assets/img/posts/path_travesal/image3.png)
 
 Có một cách khác để di chuyển là dấu chấm `(.)` : Dấu chấm tượng trưng cho đường dẫn đến thư mục hiện tại.
 
@@ -22,14 +29,14 @@ Có một cách khác để di chuyển là dấu chấm `(.)` : Dấu chấm t�
 
 Ví dụ như sau:
 
-![image.png](image%204.png)
+![](/assets/img/posts/path_travesal/image4.png)
 
 - Nếu không phản sinh viên Trường Đại học Luật → sẽ không biết phòng 404 ở đâu. Lúc này, cần Absolute Path để chỉ dẫn địa chỉ cụ thể, cho dù có ở vị trí nào trên thế giới cũng đều có thể đến được
 - Nếu đang học tại trường ĐH Luật, thì chỉ cần nói là Phòng 404 thì sẽ biết được vị trí tổ chức đó ở đâu.
 
 Trên máy tính:
 
-![image.png](image%205.png)
+![](/assets/img/posts/path_travesal/image5.png)
 
 - Đường dẫn trên máy tính cũng được chia làm 2 loại:
     - Absolute Path (đường dẫn tuyệt đối): đường dẫn bắt đầu từ thư mục gốc và bất kì đâu đều có thể đến được.
@@ -40,24 +47,24 @@ Trong hệ điều hành Linux quy ước:
 - Dấu chấm (`.`): Tượng trung cho đường dẫn đến thư mục hiện tại
 - 2 dấu chấm (`..`): Tượng trung cho đường dẫn đến thư mục cha (parent directory).
     
-    ![image.png](image%206.png)
+    ![](/assets/img/posts/path_travesal/image6.png)
     
 
 ## Đường dẫn xuất hiện ở đâu trong thế giới Web?
 
-![image.png](image%207.png)
+![](/assets/img/posts/path_travesal/image7.png)
 
 Ta thấy $_GET[’file_name’] là Untrusted Data được lưu vào biến `$file_name`, sau đó được cộng chuỗi với `‘/var/www/html/image/’`
 
 Sẽ ra sao nếu ta tác động vào file name này?
 
-![image.png](image%208.png)
+![](/assets/img/posts/path_travesal/image8.png)
 
 - Nếu như ta gán biến `$file_name='../../../../'` thì giá trị của biến `$path_name='/var/www/html/images/../../../../’`
 
 ⇒ Ta đã “quay xe 4 lần” và quay về thư mục gốc.
 
-![image.png](image%209.png)
+![](/assets/img/posts/path_travesal/image9.png)
 
 - Vậy nếu ta gán biến `$file_name="../../../../etc/passwd"`có phải là lúc này ta đã truy cập đến được `file/etc/passwd`
 - File `/etc/passwd` là một file mặc định mf bất kì hệ điều hành Linux nào cũng có.
@@ -68,7 +75,7 @@ Goal: Đọc nội dung /etc/passwd.
 
 Link challenge: [http://pathtraversal.cyberjutsu-lab.tech:8091](http://pathtraversal.cyberjutsu-lab.tech:8091/)
 
-![image.png](image%2010.png)
+![](/assets/img/posts/path_travesal/image10.png)
 
 ```php
 // file: loadimage.php
@@ -98,15 +105,15 @@ Cách khai thác: Đích cần đến là `/etc/passwd`
 
 KẾT QUẢ:
 
-![image.png](image%2011.png)
+![](/assets/img/posts/path_travesal/image11.png)
 
 Sử dụng BurpSuit hoặc view source để đọc flag:
 
-![image.png](image%2012.png)
+![](/assets/img/posts/path_travesal/image12.png)
 
 Quá trình untrusted data rơi vào nguy hiểm:
 
-![image.png](image%2013.png)
+![](/assets/img/posts/path_travesal/image13.png)
 
 ⚠️ readfile là một hàm có mức độ nguy hiểm khá cao! Thuật ngữ gọi là những hàm unsafe method. Khi nó cho phép đọc toàn bộ nội dung file của tham số đường dẫn được đưa vào
 
@@ -138,8 +145,7 @@ else { // Image file not found
 
 So sánh với Lab 1:
 
-![image.png](image%2014.png)
-
+![](/assets/img/posts/path_travesal/image14.png)
 - Ở level 2, anh dev đã filter ký tự `..` và ta không thể sử dụng cách path traversal như đã làm ở level 1.
 - Tuy nhiên, ở level 2 không có phần prefix `$file_path` và ta có thể sử dụng hàm `readfile()` với dạng absolute path `etc/passwd` bình thường.
 
@@ -148,7 +154,7 @@ So sánh với Lab 1:
 - Giá trị của param file_name là `/etc/passwd`.
 - Kết quả:
 
-![image.png](image%2015.png)
+![](/assets/img/posts/path_travesal/image15.png)
 
 - Sử dụng Burp Suite để đọc flag
 
@@ -285,7 +291,7 @@ IncludeOptional sites-enabled/*.conf
 
 Giao diện: Đây là một website cho phép upload album và xem ảnh.
 
-![image.png](image%2016.png)
+![](/assets/img/posts/path_travesal/image16.png)
 
 Sau khi phân tích source code Level 3, ta có được các mảnh ghép sau:
 
@@ -315,19 +321,19 @@ $album = $dir . "/" . strtolower($_POST['album']);
 
 → Thao túng biến album
 
-![image.png](image%2017.png)
+![](/assets/img/posts/path_travesal/image17.png)
 
 **Đặt giả thuyết:**
 
 - Kiểm tra thử xem liệu chúng ta có thể upload và thực thi file php hay không bằng cách tạo một file tên `test.php` với nội dung là `<?php phpinfo(); ?>` và upload lên website.
 - Upload thành công nhưng file test.php không được thực thi mà hiển thị dưới dạng text.
     
-    ![image.png](image%2018.png)
+    ![](/assets/img/posts/path_travesal/image18.png)
     
 
 → Nguyên nhân: Do anh developer đã cấu hình trong file apache2.conf mặc định không xử lí cho tất cả các file nằm trong đường dẫn `/var/www/html/upload/` .Một số ngoại lệ như các file .jpg, .png được hiển thị dạng ảnh, các file .html, .txt, .php hiển thị dạng text.
 
-![image.png](image%2019.png)
+![](/assets/img/posts/path_travesal/image19.png)
 
 - Liệu có thể upload vào thư mục khác có khả năng thực thi code php hay không? Cụ thể là **DocumentRoot,** nơi thực thi được file index.php.
 
@@ -335,13 +341,13 @@ $album = $dir . "/" . strtolower($_POST['album']);
 
 - Đoạn code tạo dir từ dòng 5 đến dòng 11:
     
-    ![image.png](image%2020.png)
+    ![](/assets/img/posts/path_travesal/image20.png)
     
     $dir có giá trị `'/var/www/html/upload/' . bin2hex(random_bytes(16))` và ta không thể kiểm soát được giá trị này.
     
 - Đoạn code tạo album từ dòng 17 đến dòng 19:
     
-    ![image.png](image%2021.png)
+    ![](/assets/img/posts/path_travesal/image21.png)
     
     $album có giá trị `$dir . "/" . strtolower($_POST['album'])` 
     
@@ -349,7 +355,7 @@ $album = $dir . "/" . strtolower($_POST['album']);
     
 - Đoạn code save file từ dòng 26 đến dòng 31:
     
-    ![image.png](image%2022.png)
+    ![](/assets/img/posts/path_travesal/image22.png)
     
 
 Unsafe method ở đây là hàm `move_uploaded_file($files["tmp_name"][$i], $newFile)` sẽ upload file từ `$files["tmp_name"][$i]` vào đường dẫn `$newFile` trên server mà ta có thể kiểm soát được biến `$album` nên có thể điều hướng file upload vào **DocumentRoot.**
@@ -362,17 +368,17 @@ Unsafe method ở đây là hàm `move_uploaded_file($files["tmp_name"][$i], $ne
 
 → Để đi đến đích, giá trị `$_POST['album']` cần truyền vào là `‘../..’`
 
-![image.png](image%2023.png)
+![](/assets/img/posts/path_travesal/image23.png)
 
 Kết quả: 
 
-![image.png](image%2024.png)
+![](/assets/img/posts/path_travesal/image24.png)
 
 ## Phân tích con bọ Path Traversal:
 
 Các biến thể khác của lỗi bảo mật Path Traversal
 
-![image.png](image%2025.png)
+![](/assets/img/posts/path_travesal/image25.png)
 
 ### Level 4:
 
@@ -428,7 +434,7 @@ Một ví dụ khác: Nếu ta tạo một file text `test.txt` với nội dung
 
 và include nó thì hoàn toàn thực thi được
 
-![image.png](image%2026.png)
+![](/assets/img/posts/path_travesal/image26.png)
 
 ⇒ Mức độ nguy hiểm: ⭐⭐⭐⭐⭐
 
