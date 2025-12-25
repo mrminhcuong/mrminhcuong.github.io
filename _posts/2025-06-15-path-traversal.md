@@ -469,6 +469,7 @@ Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db
 
 `game.php` 
 
+{% raw %}
 ```php
 <?php
     include './db.php';
@@ -521,6 +522,7 @@ Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db
     </body>
 </html>
 ```
+{% endraw %}
 
 Hướng khai thác:
 
