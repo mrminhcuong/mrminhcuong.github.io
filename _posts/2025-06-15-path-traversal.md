@@ -1,6 +1,6 @@
 ---
 title: "Cyber Jutsu: Web Pentest 101 - Path Traversal"
-date: 2025-15-06
+date: 2025-06-15
 categories: [cyber-jutsu, writeups]
 tags: [web-pentest-101]
 ---
