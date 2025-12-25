@@ -206,9 +206,11 @@ Source Code:
     }
 ?>
 ```
+{% endraw %}
 
 Apache2 config:
 
+{% raw %}
 ```
 # This is the main Apache server configuration file.
 DefaultRuntimeDir ${APACHE_RUN_DIR}
@@ -305,11 +307,13 @@ Sau khi phân tích source code Level 3, ta có được các mảnh ghép sau:
 
 🚧 Tuy nhiên lại không thể nào chạy được mod-php ở trong folder `/var/www/html/upload/` vì đã bị block bằng các config của apache2.conf
 
+{% raw %}
 ```php
 <FilesMatch ".*">
       SetHandler None
 </FilesMatch>
 ```
+{% endraw %}
 
 → Hướng khai thác: Tìm cách nào nó nhảy ra ngoài `/var/www/html/` để thoát khỏi config block mod-php và thực thi được file php.
 
@@ -420,7 +424,7 @@ Tìm hiểu từng document root:
     }
   }
 ?>
-```
+`{% endraw %}``
 
 ⚠️Hàm `include` : read file và execute file
 
@@ -465,7 +469,7 @@ Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db
     $response = "Success";
   }
 ?>
-```
+`{% endraw %}``
 
 `game.php` 
 
@@ -549,3 +553,5 @@ Giờ mục tiêu của chúng ta là truy cập thư mục upload
     B3: Truy cập file avatar.jpg mà chúng ta vừa upload lên `/var/www/html/upload/<user_name>/avatar.jpg`
 
 ⇒ include(unstrusted_data) + Kiểm soát nội dung file = RCE
+
+
