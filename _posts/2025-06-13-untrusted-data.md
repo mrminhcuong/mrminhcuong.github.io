@@ -64,7 +64,7 @@ Trong mô hình web này, chúng ta cần bảo vệ:
     ⇒ BurpSuite là công cụ dùng để kiểm thử xâm nhập web, hỗ trợ quan sát, phân tích và thay đổi nội dung gói tin HTTP nguyên bản.
     
 
-## Write-up for lab
+## Write-up for lab 
 
 Một số untrusted data được tìm thấy:
 
