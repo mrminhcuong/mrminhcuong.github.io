@@ -516,7 +516,7 @@ Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db
         <br>
         <div style="background-color: white; padding: 20px;">
             <?php include './views/' . $game; ?> 
-            <!---> unsafe method "include" + unstrusted data $game = vo mom -->
+            <!-- unsafe method "include" + unstrusted data $game = vo mom -->
 				</div>
     </body>
 </html>
