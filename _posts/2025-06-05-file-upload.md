@@ -1,3 +1,10 @@
+---
+title: "Cyber Jutsu: Web Pentest 101 - File Upload"
+date: 2025-06-05
+categories: [cyber-jutsu, writeups]
+tags: [web-pentest-101]
+---
+
 # FILE UPLOAD VULNERABILITIES
 
 ## The Web Foundation - Kỷ nguyên của lỗi bảo mật
@@ -10,7 +17,7 @@
     ⇒ Hyperlink
     
 
-![image.png](image.png)
+![](/assets/img/posts/file_upload/image.png)
 
 Trang web đầu tiên: https://info.cern.ch/hypertext/WWW/TheProject.html (Phục dựng)
 
@@ -18,7 +25,7 @@ Vấn đề của 2 phiên bản này: Không xử lý được user input, read
 
 ⇒ Version 1.1 ra đời.
 
-![image.png](image%201.png)
+![](/assets/img/posts/file_upload/image1.png)
 
 - Web 2.0: User có thể tạo ra content, đăng tải lên trên các website.
 
@@ -28,7 +35,7 @@ Vấn đề của 2 phiên bản này: Không xử lý được user input, read
 
 - HTTPd (HTTP daemon): nơi đầu tiên nhận và xử lý gói tin HTTP của user gửi đến.
     
-    ![image.png](image%202.png)
+    ![](/assets/img/posts/file_upload/image2.png)
     
     - Document Root: là đường dẫn tới thư mục chứa tất cả tài nguyên của trang web (home.html, index.php, images, …)
     - Có thể ví Document Root như nhà bếp trong nhà hàng → chứa các món ăn có sẵn, hoặc món ăn cần chế biến để phục vụ KH.
@@ -37,7 +44,7 @@ Vấn đề của 2 phiên bản này: Không xử lý được user input, read
     
     Quá trình một file PHP được xử lý:
     
-    ![image.png](image%203.png)
+    ![](/assets/img/posts/file_upload/image3.png)
     
     - Module php là cây cầu nối giữa Apache và PHP.
         
@@ -81,7 +88,7 @@ Docker là một nền tảng giúp các nhà phát triển và quản trị h�
     - Đọc document về hàm chưa biết trên [https://php.net/](https://php.net/).
     - Hỏi GPT
     
-    ![image.png](image%204.png)
+    ![](/assets/img/posts/file_upload/image4.png)
     
     ❔Tác động vật lý đên biến $_FILE này?
     
@@ -89,7 +96,7 @@ Docker là một nền tảng giúp các nhà phát triển và quản trị h�
     
     ### Quá trình upload file lên PHP
     
-    ![image.png](image%205.png)
+    ![](/assets/img/posts/file_upload/image5.png)
     
 - Khi người udngf upload một file lên, PHP sẽ tạm thời lưu tập tin ở /tmp/phpXXXX (XXXX là chuỗi ngẫu nhiên)
 - Vì là file tạm → để lưu lại, lập trình viên cần di chuyển ra thư mục khác bằng hàm *move_uploaded_files( )*
@@ -99,7 +106,7 @@ Docker là một nền tảng giúp các nhà phát triển và quản trị h�
     ```
     
 
-![image.png](image%206.png)
+![](/assets/img/posts/file_upload/image6.png)
 
 VD: File được move ra thư mục /var/www/html/upload
 
@@ -111,7 +118,7 @@ VD: File được move ra thư mục /var/www/html/upload
     - Có nhất thiết phải ...
     - Liệu rằng ... có làm được ...
 
-![image.png](image%207.png)
+![](/assets/img/posts/file_upload/image7.png)
 
 ## Write-up Lab:
 
@@ -152,11 +159,11 @@ Brainstorm: Nếu upload một file đuôi .php lên thì điều gì xảy ra?
 
 → HTTPd sẽ thực thi code PHP nếu như thấy tập tin có đuôi là .php
 
-![image.png](image%208.png)
+![](/assets/img/posts/file_upload/image8.png)
 
 Sau khi upload file hehe.php → HTTPd tìm thấy file hehe có đuôi là .php và xử lý.
 
-![image.png](image%209.png)
+![](/assets/img/posts/file_upload/image9.png)
 
 👉 phpinfo(); chỉ là một lệnh ví dụ để chứng minh rằng giả thiết thành công. Tất nhiên hacker sẽ còn upload những con webshell/backdoor để cày nát server nạn nhân. Chẳng hạn chạy hàm system để thực thi những lệnh OS command, từ đó có thể cho bay màu server luôn.
 
@@ -172,7 +179,7 @@ P/S: Hàm system - Execute an external program and display the output
 
 Nói ví von: Quá trình khai thác file upload, cũng giống như việc con mèo tạo ra menu để thao túng chú đầu bếp (mod-php) nhằm nấu ra những món ăn gây hại.
 
-![image.png](image%2010.png)
+![](/assets/img/posts/file_upload/image10.png)
 
 ⇒ HINT: Ghi file PHP vào DocumentRoot
 
@@ -232,9 +239,9 @@ Vì đoạn code đang kiểm tra phần tử đầu tiên sau dấu chấm nên
 
 ⇒ Bypass được extension check và upload file php thành công.
 
-![image.png](image%2011.png)
+![](/assets/img/posts/file_upload/image11.png)
 
-![image.png](image%2012.png)
+![](/assets/img/posts/file_upload/image12.png)
 
 ⇒ Lỗ hổng nằm trong cách kiểm tra đuôi → Bất tương đồng giữa hai thứ
 
@@ -285,7 +292,7 @@ if (isset($_FILES["file"])) {
 
 ⇒ Cách tiếp cận cũ đã không còn hiệu lực 😅
 
-![image.png](image%2013.png)
+![](/assets/img/posts/file_upload/image13.png)
 
 **Brainstorm 🤯:** 
 
@@ -379,7 +386,7 @@ Ta thấy rằng cả 3 loại extension đã bị chặn bằng hàm in_array.
             die("Hack detected");
 ```
 
-![image.png](image%2014.png)
+![](/assets/img/posts/file_upload/image14.png)
 
 - 3 levels trước mình hack toàn là dựa vào hành vi có sẵn của Apache và code PHP của developer.
 - Liệu có còn cách nào khác mà không cần đến cả đó không?
@@ -457,7 +464,7 @@ Quay lại Level 4:
 Nãy giờ chúng ta đã quá tập trung vào phần server back-end, liệu rằng ở phía
 web front-end có rủi ro nào có thể xảy ra?
 
-![image.png](image%2015.png)
+![](/assets/img/posts/file_upload/image15.png)
 
 - Khi một người dùng truy cập vào đường dẫn đến file upload, trong trường hợp này, đối tượng xử lý untrusted file là trình duyệt. Sẽ ra sao nếu ta upload một file HTML?
 - Không những có thể sử dụng các tag HTML thông thường như <h1>, <b>, <marquee>,… ta còn có thể tận dụng tag <script> để thực thi được code JavaScript trên trình duyệt nạn nhân.
@@ -591,7 +598,7 @@ Tuy nhiên, đoạn kiểm tra này **không xác thực nội dung thật của
 
 Ta thử upload một file .jpg lên:
 
-![image.png](image%2016.png)
+![](/assets/img/posts/file_upload/image16.png)
 
 - Dựa vào $_FILES['type'] ta có thể thấy anh lập trình viên đang kiểm tra liệu Content-Type có bằng image/jpeg không.
 - Nhưng vì Content-Type là một header trong HTTP request nên ta có thể dễ dàng thay đổi giá trị của nó bằng Burp Suite.
@@ -641,7 +648,7 @@ if (isset($_FILES["file"])) {
 
 **File Signature:**
 
-![image.png](image%2017.png)
+![](/assets/img/posts/file_upload/image17.png)
 
 Các loại file khác nhau sẽ được xác đ nh bằng một vài byte đầu tiên của file,
 gọi là file signature (chữ ký đầu tệp).
