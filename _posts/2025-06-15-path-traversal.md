@@ -60,7 +60,7 @@ Sẽ ra sao nếu ta tác động vào file name này?
 
 ![](/assets/img/posts/path_travesal/image8.png)
 
-- Nếu như ta gán biến `$file_name='../../../../'` thì giá trị của biến `$path_name='/var/www/html/images/../../../../’`
+- Nếu như ta gán biến `$file_name='../../../../'` thì giá trị của biến '$path_name='/var/www/html/images/../../../../’`
 
 ⇒ Ta đã “quay xe 4 lần” và quay về thư mục gốc.
 
