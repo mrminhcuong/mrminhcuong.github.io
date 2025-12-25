@@ -1,5 +1,5 @@
 ---
-title: "Cyber Jutsu: Web Pentest 101 – Untrusted Data"
+title: "Cyber Jutsu: Web Pentest 101 - Untrusted Data"
 date: 2025-06-13
 categories: [cyber-jutsu, writeups]
 tags: [web-pentest-101]
@@ -18,7 +18,7 @@ tags: [web-pentest-101]
 
 **❔ Tại sao các dữ liệu bên ngoài (External Data) là không đáng tin?**
 
-![](assets/img/posts/unstrusted_data/image.png)
+![](/assets/img/posts/untrusted_data/image.png)
 
 - Hackers là tập con của Users, chỉ khác ở, đây là những người dùng tinh nghịch
 - Dữ liệu Hackers và Users lẫn vào nhau → Buộc phải xem tất cả dữ liệu đi vào là không đáng tin cậy
@@ -36,7 +36,7 @@ tags: [web-pentest-101]
 
 ## 1.2. Rủi ro từ Untrusted Data
 
-![](assets/img/posts/unstrusted_data/image1.png)
+![](/assets/img/posts/untrusted_data/image1.png)
 
 Trong mô hình web này, chúng ta cần bảo vệ:
 
@@ -55,7 +55,7 @@ Trong mô hình web này, chúng ta cần bảo vệ:
 
 ## 1.3. Cách attacker tác động đến Web Server:
 
-![](assets/img/posts/unstrusted_data/image2.png)
+![](/assets/img/posts/untrusted_data/image2.png)
 
 - Trong mô hình này, untrusted data là toàn bộ gói tin HTTP Request.
 - Lưu ý: Trong các trường hợp phức tạp hơn, untrusted data có thể đến từ rất nhiều nguồn khác nhau.
