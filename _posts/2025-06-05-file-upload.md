@@ -467,7 +467,7 @@ web front-end có rủi ro nào có thể xảy ra?
 ![](/assets/img/posts/file_upload/image15.png)
 
 - Khi một người dùng truy cập vào đường dẫn đến file upload, trong trường hợp này, đối tượng xử lý untrusted file là trình duyệt. Sẽ ra sao nếu ta upload một file HTML?
-- Không những có thể sử dụng các tag HTML thông thường như <h1>, <b>, <marquee>,… ta còn có thể tận dụng tag <script> để thực thi được code JavaScript trên trình duyệt nạn nhân.
+- Không những có thể sử dụng các tag HTML thông thường như `<h1>`, `<b>`, `<marquee>`, … attacker còn có thể tận dụng tag `<script>` để thực thi mã JavaScript trực tiếp trên trình duyệt của nạn nhân.
 - Để đánh cắp cookie, ta cần tìm cách để vận chuyển cookie đến server attacker:
     
     VD: 
