@@ -1,6 +1,6 @@
 ---
 title: "Cyber Jutsu: Web Pentest 101 – Untrusted Data"
-date: 2025-13-06
+date: 2025-06-13
 categories: [cyber-jutsu, writeups]
 tags: [web-pentest-101]
 ---
