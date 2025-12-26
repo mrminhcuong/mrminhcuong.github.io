@@ -54,15 +54,15 @@ Trong hệ điều hành Linux quy ước:
 
 ![](/assets/img/posts/path_traversal/image7.png)
 
-Ta thấy $_GET[’file_name’] là Untrusted Data được lưu vào biến `$file_name`, sau đó được cộng chuỗi với `‘/var/www/html/image/’`
+Ta thấy $_GET['file_name'] là Untrusted Data được lưu vào biến `$file_name`, sau đó được cộng chuỗi với `'/var/www/html/image/'`
 
 Sẽ ra sao nếu ta tác động vào file name này?
 
 ![](/assets/img/posts/path_traversal/image8.png)
 
-- Nếu như ta gán biến `$file_name='../../../../'` thì giá trị của biến '$path_name='/var/www/html/images/../../../../’`
+- Nếu như ta gán biến `$file_name='../../../../'` thì giá trị của biến '$path_name='/var/www/html/images/../../../../'`
 
-⇒ Ta đã “quay xe 4 lần” và quay về thư mục gốc.
+⇒ Ta đã "quay xe 4 lần" và quay về thư mục gốc.
 
 ![](/assets/img/posts/path_traversal/image9.png)
 
@@ -119,7 +119,7 @@ Quá trình untrusted data rơi vào nguy hiểm:
 
 → Mà untrusted data đang rơi vào tham số của đường dẫn của nó
 
-→ Cuối cùng, tận dụng 4 nguyên tắc về đường dẫn để “thao túng” và chuyển hướng đường dẫn $file_path sang một tập tin khác mà attacker muốn!
+→ Cuối cùng, tận dụng 4 nguyên tắc về đường dẫn để "thao túng" và chuyển hướng đường dẫn $file_path sang một tập tin khác mà attacker muốn!
 
 ❔ Giả sử mình không biết mã nguồn → Không biết bao nhiêu thư mục. Làm sao để biết có bao nhiêu `../` thì về root?
 
@@ -127,7 +127,7 @@ Quá trình untrusted data rơi vào nguy hiểm:
 
 GOAL: Đọc nội dung /etc/passwd
 
- File `loadimage.php`:
+File `loadimage.php`:
 
 ```php
 <?php 
@@ -164,6 +164,7 @@ Goal: Chiếm quyền điều khiển server và đọc một tập tin bí mậ
 
 Source Code:
 
+{% raw %}
 ```php
 <?php
 
@@ -184,7 +185,7 @@ Source Code:
             //Create Album
             $album = $dir . "/" . strtolower($_POST['album']); 
             // --> /var/www/html/upload/<32_ky_tu_random>/<album>
-            // Dấu [] trong khai báo biến ở php -> Ý nói đây là một array -> upload nhieu file mot luc
+            // Dấu [] trong khai báo biến ở php -> Ý nói đây là một array -> upload nhieu file mot luc
             if ( !file_exists($album))
                 mkdir($album);
 
@@ -206,11 +207,9 @@ Source Code:
     }
 ?>
 ```
-{% endraw %}
 
 Apache2 config:
 
-{% raw %}
 ```
 # This is the main Apache server configuration file.
 DefaultRuntimeDir ${APACHE_RUN_DIR}
@@ -290,6 +289,7 @@ IncludeOptional conf-enabled/*.conf
 
 IncludeOptional sites-enabled/*.conf
 ```
+{% endraw %}
 
 Giao diện: Đây là một website cho phép upload album và xem ảnh.
 
@@ -370,7 +370,7 @@ Unsafe method ở đây là hàm `move_uploaded_file($files["tmp_name"][$i], $ne
 `'/var/www/html/upload/16_random_bytes/{album}/{file}'`
 - Đích: `'/var/www/html/{file}'`
 
-→ Để đi đến đích, giá trị `$_POST['album']` cần truyền vào là `‘../..’`
+→ Để đi đến đích, giá trị `$_POST['album']` cần truyền vào là `'../..'`
 
 ![](/assets/img/posts/path_traversal/image23.png)
 
@@ -390,8 +390,9 @@ Link: http://pathtraversal.cyberjutsu-lab.tech:8094/
 
 Tìm hiểu từng document root:
 
-`register.php` :
+`register.php`:
 
+{% raw %}
 ```php
 <?php
   include './db.php';
@@ -424,11 +425,12 @@ Tìm hiểu từng document root:
     }
   }
 ?>
-`{% endraw %}``
+```
+{% endraw %}
 
-⚠️Hàm `include` : read file và execute file
+⚠️ Hàm `include`: read file và execute file
 
-Ví dụ ở trên, `include './db.php';` nghĩa là nó đang đọc file và excute file trực tiếp từ `db.php`
+Ví dụ ở trên, `include './db.php';` nghĩa là nó đang đọc file và execute file trực tiếp từ `db.php`
 
 Một ví dụ khác: Nếu ta tạo một file text `test.txt` với nội dung
 
@@ -442,11 +444,11 @@ và include nó thì hoàn toàn thực thi được
 
 ⇒ Mức độ nguy hiểm: ⭐⭐⭐⭐⭐
 
-Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db.php là của anh dev 
+Tuy nhiên ở dòng `include './db.php';` không phải untrusted data vì db.php là của anh dev 
 
 → Không thể can thiệp
 
-`profile.php` 
+`profile.php`:
 
 ```php
 <?php
@@ -469,9 +471,9 @@ Tuy nhiên ở dòng   `include './db.php';` không phải untrusted data vì db
     $response = "Success";
   }
 ?>
-`{% endraw %}``
+```
 
-`game.php` 
+`game.php`:
 
 {% raw %}
 ```php
@@ -534,10 +536,9 @@ Bước 1: Upload một file chứa mã thực thi lên server, ở đây mình 
 
 `<?php phpinfo();?>`
 
-- Dựa vào logic của chương trình, chúng ta có thể xác định được đường dẫn sau khi upload của chương
-trình trên hệ thống là `/var/www/html/upload/<user_name>/avatar.jpg`
+- Dựa vào logic của chương trình, chúng ta có thể xác định được đường dẫn sau khi upload của chương trình trên hệ thống là `/var/www/html/upload/<user_name>/avatar.jpg`
 
-Bước 2: 
+Bước 2:
 
 Khai thác include để thực thi file nguy hiểm vừa upload bằng cách truy cập đến endpoint
 `/game.php?game=../upload/cyberjutsu/avatar.jpg`
@@ -546,9 +547,9 @@ Khai thác include để thực thi file nguy hiểm vừa upload bằng cách t
 
 Giờ mục tiêu của chúng ta là truy cập thư mục upload
 
-⇒ B1: Quay lại folder document root:  `./var/www/html/views/..` → `./var/www/html/`
+⇒ B1: Quay lại folder document root: `./var/www/html/views/..` → `./var/www/html/`
 
-    B2: Truy cập folder upload:  `./var/www/html/upload`
+    B2: Truy cập folder upload: `./var/www/html/upload`
 
     B3: Truy cập file avatar.jpg mà chúng ta vừa upload lên `/var/www/html/upload/<user_name>/avatar.jpg`
 
